@@ -1,18 +1,17 @@
-
 ###
 GET http://localhost:13000/setup
-###
 
-POST http://localhost:1337
+###
+GET http://localhost:13000
+
+###
+POST http://localhost:13000/
 Content-Type: application/json
 
 {
-    "name": "John Doe",
-    "email": "johndoe@email.com"
-}
-
-###
-
-###
-GET http://localhost:13000/
-###
+    "Title": "Pokémon: Detective Pikachu",
+    "Year": "2019",
+    "imdbID": "tt5884052",
+    "Type": "movie",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BMDkxNzRmNDYtMDY0OS00N2JhLTkzZWUtMWE3MzZkNDk1MmJiXkEyXkFqcGdeQXVyNTA3MTU2MjE@._V1_SX300.jpg"
+  }
