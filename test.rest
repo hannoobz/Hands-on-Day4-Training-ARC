@@ -1,0 +1,18 @@
+
+###
+GET http://localhost:13000/setup
+###
+
+POST http://localhost:1337
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "johndoe@email.com"
+}
+
+###
+
+###
+GET http://localhost:13000/
+###
