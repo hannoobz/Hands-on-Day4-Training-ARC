@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const fs = require('fs');
 const pool = require('./db');
 const path = require('path');
@@ -6,6 +7,8 @@ const port = 3000
 const app = express()
 app.use(express.json())
 
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
     try {
@@ -58,6 +61,29 @@ app.post('/', async (req, res) => {
         res.sendStatus(500)
     }
 })
+
+app.post('/submit', async (req, res) => {
+    const { title, year, imdbID, type, poster } = req.body;
+    console.log('submitted',title,year,imdbID,type,poster)
+    try {
+        await pool.query('INSERT INTO movies (Title, Year, imdbID, Type, Poster) VALUES ($1, $2, $3, $4, $5)', [title, year, imdbID, type, poster]);
+        res.status(200).send({ message: "Successfully added movie" });
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+});
+
+app.post('/delete', async (req, res) => {
+    const { imdbID } = req.body;
+    try {
+        await pool.query('DELETE FROM movies WHERE imdbID = $1', [imdbID]);
+        res.status(200).send({ message: "Successfully deleted movie" });
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+});
 
 
 app.listen(port, () => console.log(`Server has started on port: ${port}`))

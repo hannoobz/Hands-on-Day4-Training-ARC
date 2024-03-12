@@ -4,7 +4,79 @@
 
     </head>
     <body>
+        <h3>Delete movie</h3>
+        <form id="delete">
+            <label for="imdbID">imdbID:</label>
+            <input type="text" id="imdbIDdel" name="imdbID">
+            <button id="deleteButt">Delete Movie</button>
+        </form>
+
+        <h3>Add movie</h3>
+        <form id="add">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
         
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year">
+        
+            <label for="imdbID">imdbID:</label>
+            <input type="text" id="imdbID" name="imdbID">
+        
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type">
+        
+            <label for="poster">Poster:</label>
+            <input type="text" id="poster" name="poster">
+        
+            <button id="addButt">Add Movie</button>
+        </form>
+        <script>
+            const deleteImdbID = document.getElementById('imdbIDdel');
+            const addTitle = document.getElementById('title');
+            const addYear = document.getElementById('year');
+            const addImdbID = document.getElementById('imdbID');
+            const addType = document.getElementById('type');
+            const addPoster = document.getElementById('poster');
+
+            document.getElementById('deleteButt').addEventListener('click', delMovie);
+            document.getElementById('addButt').addEventListener('click', addMovie);
+            
+            async function delMovie(e){
+                e.preventDefault();
+                const res = await fetch('http://localhost:13000/delete',
+                {
+                    method: 'POST',
+                    headers:{
+                        "Content-Type" : "application/json"
+                    },
+                    body: JSON.stringify({
+                        imdbID : deleteImdbID.value
+                    })
+
+                })
+                location.reload();
+            }
+            
+            async function addMovie(e){
+                e.preventDefault();
+                const res = await fetch('http://localhost:13000/submit',
+                {
+                    method: 'POST',
+                    headers:{
+                        "Content-Type" : "application/json"
+                    },
+                    body: JSON.stringify({
+                        title : addTitle.value,
+                        year : addYear.value,
+                        type : addType.value,
+                        poster : addPoster.value,
+                        imdbID : addImdbID.value
+                    })
+
+                })
+                location.reload();
+            }
+        </script>
         <div id="movies">
 
         </div>
