@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        
+        <div id="movies">
+
+        </div>
+        <script defer>
+            fetch('/movie-data')
+            .then(response=> response.json())
+            .then(data=>{
+                console.log(data);
+                data.forEach(element => {
+                    const htmldata = `<img src="${element.poster}">
+                                        <h3>Title : ${element.title}</h3>
+                                        <h3>Year : ${element.year}</h3>
+                                        <h3>Type : ${element.type}</h3>
+                                        <h3>imdbID : ${element.imdbid}</h3>`;
+                    document.querySelector('#movies').insertAdjacentHTML('beforeend',htmldata) 
+                });
+            })
+            .catch(error => console.log(error));
+        </script>
+    </body>
+</html>
